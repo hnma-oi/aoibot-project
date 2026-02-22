@@ -1,0 +1,92 @@
+@import "tailwindcss"; 
+/* If you are on Tailwind v3 use the 3 @tailwind lines */
+
+@theme {
+  /* --- 1. Old Rose Palette --- */
+  --color-old-rose-50: #f7eef1;
+  --color-old-rose-100: #efdce2;
+  --color-old-rose-200: #dfb9c5;
+  --color-old-rose-300: #cf96a8;
+  --color-old-rose-400: #bf738b;
+  --color-old-rose-500: #af506e;
+  --color-old-rose-600: #8c4058;
+  --color-old-rose-700: #693042;
+  --color-old-rose-800: #46202c;
+  --color-old-rose-900: #231016;
+  --color-old-rose-950: #180b0f;
+
+  /* --- 2. Night Bordeaux Palette --- */
+  --color-night-bordeaux-50: #fce9ec;
+  --color-night-bordeaux-100: #f9d2d9;
+  --color-night-bordeaux-200: #f3a5b2;
+  --color-night-bordeaux-300: #ed788c;
+  --color-night-bordeaux-400: #e74b65;
+  --color-night-bordeaux-500: #e01f3f;
+  --color-night-bordeaux-600: #b41832;
+  --color-night-bordeaux-700: #871226;
+  --color-night-bordeaux-800: #5a0c19;
+  --color-night-bordeaux-900: #2d060d;
+  --color-night-bordeaux-950: #1f0409;
+
+  /* --- 3. Rich Mahogany Palette --- */
+  --color-rich-mahogany-50: #faeaec;
+  --color-rich-mahogany-100: #f6d5d9;
+  --color-rich-mahogany-200: #ecacb2;
+  --color-rich-mahogany-300: #e3828c;
+  --color-rich-mahogany-400: #d95966;
+  --color-rich-mahogany-500: #d02f3f;
+  --color-rich-mahogany-600: #a62633;
+  --color-rich-mahogany-700: #7d1c26;
+  --color-rich-mahogany-800: #531319;
+  --color-rich-mahogany-900: #2a090d;
+  --color-rich-mahogany-950: #1d0709;
+
+  /* --- 4. Desert Sand Palette --- */
+  --color-desert-sand-50: #f6f1ef;
+  --color-desert-sand-100: #ede4de;
+  --color-desert-sand-200: #dbc9bd;
+  --color-desert-sand-300: #c9ad9c;
+  --color-desert-sand-400: #b7927b;
+  --color-desert-sand-500: #a4775b;
+  --color-desert-sand-600: #845f48;
+  --color-desert-sand-700: #634736;
+  --color-desert-sand-800: #423024;
+  --color-desert-sand-900: #211812;
+  --color-desert-sand-950: #17110d;
+
+  /* --- 5. Straw Gold Palette --- */
+  --color-straw-gold-50: #fbf8e9;
+  --color-straw-gold-100: #f7f1d4;
+  --color-straw-gold-200: #efe2a9;
+  --color-straw-gold-300: #e7d47e;
+  --color-straw-gold-400: #dfc653;
+  --color-straw-gold-500: #d7b728;
+  --color-straw-gold-600: #ac9320;
+  --color-straw-gold-700: #816e18;
+  --color-straw-gold-800: #564910;
+  --color-straw-gold-900: #2b2508;
+  --color-straw-gold-950: #1e1a06;
+}
+
+
+/* Hide Scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide Scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* --- Animations --- */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

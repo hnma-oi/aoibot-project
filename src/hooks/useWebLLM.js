@@ -7,9 +7,24 @@ export function useWebLLM() {
   const engine = useRef(null);
 
   useEffect(() => {
+    let originalRequestAdapter = null;
+
     async function init() {
         try {
             setIsLoading(true);
+            setProgress('Checking GPU availability...');
+
+            if (!navigator.gpu) {
+                throw new Error("WebGPU is not supported in this browser. Please use a compatible browser like Chrome, Edge, or Brave.");
+            }
+
+            // Store original and monkey-patch to force high-performance GPU
+            originalRequestAdapter = navigator.gpu.requestAdapter;
+            navigator.gpu.requestAdapter = function(options) {
+                console.log("Forcing high-performance GPU adapter request");
+                return originalRequestAdapter.call(navigator.gpu, { ...options, powerPreference: 'high-performance' });
+            };
+
             setProgress('Initializing AI Engine (downloading model)...');
             // Using a tiny model suitable for browser
             const selectedModel = "Llama-3.2-1B-Instruct-q4f32_1";
@@ -26,8 +41,18 @@ export function useWebLLM() {
             setIsLoading(false);
         } catch (error) {
             console.error("Failed to initialize WebLLM", error);
-            setProgress('Error initializing AI: ' + error.message);
+            // More helpful error message for "Unable to find a compatible GPU"
+            let msg = error.message;
+            if (msg.includes("Unable to find a compatible GPU")) {
+                msg = "Unable to find a compatible GPU. Please ensure your browser is using your dedicated GPU (check system graphics settings) and supports WebGPU.";
+            }
+            setProgress('Error initializing AI: ' + msg);
             setIsLoading(false);
+        } finally {
+            // Restore original function
+            if (navigator.gpu && originalRequestAdapter) {
+                navigator.gpu.requestAdapter = originalRequestAdapter;
+            }
         }
     }
 
@@ -36,7 +61,7 @@ export function useWebLLM() {
 
   async function generateResponse(text, chatHistory = []) {
     if (!engine.current) {
-        return "AI is still initializing. Please wait a moment.";
+        return "AI is still initializing or failed to load. Please check the status message.";
     }
 
     // We set loading state to indicate generation is happening

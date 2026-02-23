@@ -7,14 +7,17 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "node server/index.js"
   },
   "dependencies": {
     "@filigran/chatbot": "^1.1.1",
-    "@mlc-ai/web-llm": "^0.2.81",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
+    "@xenova/transformers": "^2.17.2",
     "autoprefixer": "^10.4.23",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "supersimpledev": "^8.6.4",

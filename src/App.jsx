@@ -1,7 +1,7 @@
 import { useState, } from 'react';
 import { ChatInput } from './components/ChatInput';
 import { ChatMessages } from './components/ChatMessages';
-import { useWebLLM } from './hooks/useWebLLM';
+import { useServerLLM } from './hooks/useServerLLM';
 import './App.css'; // or './index.css'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     { sender: "葵日南", message: "私の趣味はゲーム！特にアタファミが大好きです。あなたはどんなゲームが好きですか？🎮", uuid: crypto.randomUUID() }
   ]);
 
-  const { generateResponse, progress } = useWebLLM();
+  const { generateResponse, error } = useServerLLM();
 
   return (
     // Note: We added h-screen and w-screen to the outer container to match the HTML body styles
@@ -40,9 +40,9 @@ function App() {
             <h1 className="text-lg font-serif font-bold text-old-rose-100 tracking-widest drop-shadow-sm">
                 葵日南 <span className="text-xs opacity-50 ml-1">AI CHAT</span>
             </h1>
-            {progress && (
-                <div className="text-[10px] text-old-rose-200 animate-pulse whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]">
-                    {progress}
+            {error && (
+                <div className="text-[10px] text-red-400 animate-pulse whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]">
+                    {error}
                 </div>
             )}
           </div>

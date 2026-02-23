@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Chatbot } from 'supersimpledev'; 
 
-export function ChatInput({ chatMessages, setChatMessages }) {
+export function ChatInput({ chatMessages, setChatMessages, generateResponse }) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,8 +37,12 @@ export function ChatInput({ chatMessages, setChatMessages }) {
     ]);
 
     // 3. Get Response
-    // Note: Ensure Chatbot is correctly imported from your npm package
-    const aoiResponse = await Chatbot.getResponseAsync(currentText);
+    let aoiResponse;
+    if (generateResponse) {
+      aoiResponse = await generateResponse(currentText, chatMessages);
+    } else {
+      aoiResponse = "AI connection not available.";
+    }
 
     // 4. Update with Real Message
     setChatMessages([

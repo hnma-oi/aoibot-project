@@ -1,6 +1,7 @@
 import { useState, } from 'react';
 import { ChatInput } from './components/ChatInput';
 import { ChatMessages } from './components/ChatMessages';
+import { useServerLLM } from './hooks/useServerLLM';
 import './App.css'; // or './index.css'
 
 function App() {
@@ -10,6 +11,8 @@ function App() {
     { sender: "ユーザー", message: "葵の趣味は何ですか？", uuid: crypto.randomUUID() },
     { sender: "葵日南", message: "私の趣味はゲーム！特にアタファミが大好きです。あなたはどんなゲームが好きですか？🎮", uuid: crypto.randomUUID() }
   ]);
+
+  const { generateResponse, error } = useServerLLM();
 
   return (
     // Note: We added h-screen and w-screen to the outer container to match the HTML body styles
@@ -27,15 +30,22 @@ function App() {
       ">
 
         {/* Header */}
-        <header className="p-4 bg-white/5 border-b border-white/10 flex items-center justify-between backdrop-blur-md">
+        <header className="p-4 bg-white/5 border-b border-white/10 flex items-center justify-between backdrop-blur-md relative">
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
             <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
           </div>
-          <h1 className="text-lg font-serif font-bold text-old-rose-100 tracking-widest drop-shadow-sm">
-            葵日南 <span className="text-xs opacity-50 ml-1">AI CHAT</span>
-          </h1>
+          <div className="flex flex-col items-center absolute left-1/2 transform -translate-x-1/2">
+            <h1 className="text-lg font-serif font-bold text-old-rose-100 tracking-widest drop-shadow-sm">
+                葵日南 <span className="text-xs opacity-50 ml-1">AI CHAT</span>
+            </h1>
+            {error && (
+                <div className="text-[10px] text-red-400 animate-pulse whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]">
+                    {error}
+                </div>
+            )}
+          </div>
           <div className="w-10"></div>
         </header>
 
@@ -46,6 +56,7 @@ function App() {
         <ChatInput
           chatMessages={chatMessages}
           setChatMessages={setChatMessages}
+          generateResponse={generateResponse}
         />
       </div>
     </div>
